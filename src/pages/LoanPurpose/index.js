@@ -14,7 +14,10 @@ export default function TimeToBuyHome() {
     try {
       formRef.current.setErrors({})
 
-      console.log(data)
+      const storage = JSON.parse(localStorage.getItem('dados_ideall'))
+      const newStorage = { ...storage, ...data }
+
+      localStorage.setItem('dados_ideall', JSON.stringify(newStorage))
 
       history.push('/resultado')
     } catch (err) {

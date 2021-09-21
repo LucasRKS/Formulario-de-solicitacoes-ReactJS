@@ -14,9 +14,9 @@ export default function Home() {
   const formRef = useRef(null)
 
   const options = [
-    { value: 'masculino', label: 'Masculino' },
-    { value: 'feminino', label: 'Feminino' },
-    { value: 'Não identificar', label: 'Não identificar' },
+    { value: 'M', label: 'Masculino' },
+    { value: 'F', label: 'Feminino' },
+    { value: 'N', label: 'Não identificar' },
   ]
 
   const handleSubmit = useCallback(async (data) => {
@@ -27,7 +27,9 @@ export default function Home() {
         nome: Yup.string().required('Informe seu nome'),
         cpf: Yup.string().required('Informe o seu cpf'),
         sexo: Yup.string().required('Informe seu sexo'),
-        data_nasc: Yup.string().required('Informe sua data de nascimento'),
+        data_nascimento: Yup.string().required(
+          'Informe sua data de nascimento'
+        ),
         email: Yup.string().required('Informe o seu e-mail'),
         celular: Yup.string().required('Informe o seu celular'),
         renda: Yup.string().required('Informe sua renda'),
@@ -39,11 +41,14 @@ export default function Home() {
 
       formRef.current.setErrors({})
 
-      const storageValue = localStorage.getItem('tipo_financiamento_ideall')
+      const storage = JSON.parse(localStorage.getItem('dados_ideall'))
+      const storageValue = storage.tipo_financiamento
+      const newStorage = { ...storage, ...data }
+
+      localStorage.setItem('dados_ideall', JSON.stringify(newStorage))
 
       let pushTo
-
-      if (storageValue === 'imobiliario') {
+      if (storageValue === '1') {
         pushTo = '/tempo'
       } else {
         pushTo = '/finalidade'
@@ -96,7 +101,7 @@ export default function Home() {
         </div>
         <div className="col-md-12">
           <MaskedInput
-            name="data_nasc"
+            name="data_nascimento"
             type="text"
             label="Data de nascimento"
             placeholder="Informe sua data de nascimento"

@@ -24,6 +24,11 @@ export default function TimeToBuyHome() {
         abortEarly: false,
       })
 
+      const storage = JSON.parse(localStorage.getItem('dados_ideall'))
+      const newStorage = { ...storage, ...data }
+
+      localStorage.setItem('dados_ideall', JSON.stringify(newStorage))
+
       history.push('/resultado')
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
@@ -39,11 +44,11 @@ export default function TimeToBuyHome() {
   })
 
   const radioOptions = [
-    { id: '1mes', value: '1', label: 'Em até 1 mês' },
-    { id: '1_3mes', value: '1-3', label: 'De 1 a 3 meses' },
-    { id: '3_6mes', value: '3-6', label: 'De 3 a 6 meses' },
-    { id: '6mes', value: '6', label: '  Mais de 6 meses' },
-    { id: 'notdefined', value: 'notdefined', label: 'Ainda não defini' },
+    { id: '1mes', value: '1 mes', label: 'Em até 1 mês' },
+    { id: '1_3mes', value: '1 a 3 meses', label: 'De 1 a 3 meses' },
+    { id: '3_6mes', value: '3 a 6 meses', label: 'De 3 a 6 meses' },
+    { id: '6mes', value: 'mais de 6 meses', label: '  Mais de 6 meses' },
+    { id: 'notdefined', value: 'não definido', label: 'Ainda não defini' },
   ]
 
   return (

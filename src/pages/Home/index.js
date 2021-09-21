@@ -17,8 +17,8 @@ export default function Home() {
   )
 
   const options = [
-    { value: 'imobiliario', label: 'Financiamento imobiliário' },
-    { value: 'credito', label: 'Crédito com garantia imobiliária' },
+    { value: '1', label: 'Financiamento imobiliário' },
+    { value: '2', label: 'Crédito com garantia imobiliária' },
   ]
 
   const handleSelectFinanciamento = useCallback((e) => {
@@ -26,9 +26,7 @@ export default function Home() {
 
     formRef.current.setErrors({})
 
-    localStorage.setItem('tipo_financiamento_ideall', selectedOption)
-
-    if (selectedOption === 'imobiliario') {
+    if (selectedOption === '1') {
       setHideTipoFinanciamentoCredito(false)
     } else {
       setHideTipoFinanciamentoCredito(true)
@@ -45,12 +43,14 @@ export default function Home() {
             'Selecione o tipo de financiamento'
           ),
           valor_imovel: Yup.string().required('Informe o valor do imóvel'),
-          valor_solicitado: Yup.string().required('Informe o valor da entrada'),
+          valor_necessario: Yup.string().required('Informe o valor da entrada'),
         })
 
         await schema.validate(data, {
           abortEarly: false,
         })
+
+        localStorage.setItem('dados_ideall', JSON.stringify(data))
 
         history.push('/cadastro')
       } catch (err) {
@@ -79,6 +79,8 @@ export default function Home() {
         })
 
         formRef.current.setErrors({})
+
+        localStorage.setItem('dados_ideall', JSON.stringify(data))
 
         history.push('/cadastro')
       } catch (err) {
@@ -130,11 +132,11 @@ export default function Home() {
         </div>
         <div className="col-md-12">
           <MoneyInput
-            name="valor_solicitado"
+            name="valor_necessario"
             type="text"
             placeholder="Informe o valor que necessita"
             label="Valor necessário"
-            inputId="valor_solicitado"
+            inputId="valor_necessario"
             disabled={!tipoFinanciamentoCredito}
           />
         </div>

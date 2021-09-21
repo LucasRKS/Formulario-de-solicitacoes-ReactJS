@@ -1,7 +1,31 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+
+import api from '../../services/api'
+
+import Button from '../../components/Button'
 
 export default function TimeToBuyHome() {
+  const history = useHistory()
+
+  useEffect(async () => {
+    const storage = JSON.parse(localStorage.getItem('dados_ideall'))
+
+    if (storage === null) {
+      history.push('/')
+    }
+
+    localStorage.removeItem('dados_ideall')
+
+    await api.post('/create_data', storage)
+  })
+
+  const handleClick = () => {
+    localStorage.removeItem('dados_ideall')
+
+    return history.push('/')
+  }
+
   return (
     <div className="row">
       <div className="col-md-12 mb-5 text-center">
@@ -49,9 +73,9 @@ export default function TimeToBuyHome() {
         </tbody>
       </table>
       <div className="col-md-12 mt-3 text-center">
-        <Link to="/" className="btn btn-primary">
+        <Button btnType="button" onClick={handleClick} btnClassType="primary">
           REFAZER
-        </Link>
+        </Button>
       </div>
     </div>
   )
