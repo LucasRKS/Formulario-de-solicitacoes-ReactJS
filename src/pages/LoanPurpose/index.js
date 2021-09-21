@@ -74,9 +74,7 @@ export default function TimeToBuyHome() {
             label="Reformar a casa"
           />
         </div>
-        <div className="col-6">
-          <Checkbox name="finalidade_outros" value="outros" label="Outros" />
-        </div>
+        <div className="col-6" />
 
         <div className="col-md-6 mt-3 text-center">
           <Link to="/cadastro" className="btn btn-warning">
