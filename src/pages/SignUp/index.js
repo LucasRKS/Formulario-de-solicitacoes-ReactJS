@@ -8,6 +8,7 @@ import MoneyInput from '../../components/MoneyInput'
 import MaskedInput from '../../components/MaskedInput'
 import Select from '../../components/Select'
 import Button from '../../components/Button'
+import Checkbox from '../../components/Checkbox'
 
 export default function Home() {
   const history = useHistory()
@@ -89,6 +90,13 @@ export default function Home() {
             label="CPF"
             placeholder="Informe seu CPF"
             mask="999.999.999-99"
+          />
+        </div>
+        <div className="col-md-12 mb-2">
+          <Checkbox
+            name="proprietario_cpf"
+            label="Proprietário do CPF"
+            value="S"
           />
         </div>
         <div className="col-md-12">
