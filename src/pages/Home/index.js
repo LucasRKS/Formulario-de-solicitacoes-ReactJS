@@ -9,13 +9,13 @@ import Button from '../../components/Button'
 
 export default function Home() {
   const history = useHistory()
-
   const formRef = useRef(null)
-
   const [tipoFinanciamentoCredito, setHideTipoFinanciamentoCredito] = useState(
     false
   )
-
+  const [valorNecessarioPlaceholder, setValorNecessarioPlaceholder] = useState(
+    ''
+  )
   const options = [
     { value: '1', label: 'Financiamento imobiliário' },
     { value: '2', label: 'Crédito com garantia imobiliária' },
@@ -27,8 +27,10 @@ export default function Home() {
     formRef.current.setErrors({})
 
     if (selectedOption === '1') {
+      setValorNecessarioPlaceholder('')
       setHideTipoFinanciamentoCredito(false)
     } else {
+      setValorNecessarioPlaceholder('Informe o valor necessário')
       setHideTipoFinanciamentoCredito(true)
     }
   })
@@ -134,9 +136,9 @@ export default function Home() {
           <MoneyInput
             name="valor_necessario"
             type="text"
-            placeholder="Informe o valor que necessita"
             label="Valor necessário"
             inputId="valor_necessario"
+            placeholder={valorNecessarioPlaceholder}
             disabled={!tipoFinanciamentoCredito}
           />
         </div>
